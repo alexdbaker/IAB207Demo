@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <div class="container">
+        <div class="row mt-5 mb-5 justify-content-center">
+            <div class="col-md-10">
+                <div class="media border p-3 d-flex justify-content-start">
+                    <img class="align-self-center me-3" style="max-width:120px"
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Earth_Western_Hemisphere_transparent_background.png/600px-Earth_Western_Hemisphere_transparent_background.png"
+                        alt="Planet Earth">
+                    <div class="align-self-center media-body">
+                        <h5 class="mt-0">Find the best destinations on earth</h5>
+                        <p class="d-none d-sm-block">Register an account now to find your dream destination</p>
+                        <a href="{{ url_for('auth.register') }}" class="flex-shrink-1 btn btn-pink my-1">Join Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <!--Jumbotron-->
+    <div class="container">
+        <div class="row justify-content-center mt-5 pb-4">
+            <div class="col-md-8">
+                <div class="card shadow p-5 mb-5 bg-light">
+                    <h1 class="text-center mb-3">Search for a destination here!</h1>
+
+                    <form class="form-inline d-flex flex-nowrap" action="{{url_for('main.search')}}">
+                     <input type="text" name="search" class="form-control flex-grow-1 my-1 mr-sm-2" id="SearchForm" placeholder="Enter a destination to begin your journey">
+                     <button type="submit" class="flex-shrink-1 btn btn-pink my-1">Search</button>
+                 </form>
+                 
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row mt-5 mb-5 justify-content-center">
+            <div class="col-md-10">
+                <div class="card-group">
+                    {% for destination in destinations %}
+                    <div class="card mx-3" style="width: 18rem;">
+                        <img class="card-img-top" src="{{ destination.image }}" alt="destination picture">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ destination.name }}</h5>
+                            <p class="card-text">{{ destination.description }}</p>
+                        </div>
+                        <div class="card-footer"><a href="{{ url_for('destination.show', id=destination.id) }}"
+                                class="flex-shrink-1 btn btn-pink my-1">View Details</a></div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .navbar-pink {
+            background-color: pink;
+        }
+
+        .navbar-pink .nav-link:hover {
+            color: white; /* Change the color on hover */
+        }
+
+        .btn-pink {
+            background-color: pink;
+            color: white;
+            border: none;
+            transition: transform 0.2s; /* Add transition for smooth effect */
+        }
+
+        .btn-pink:hover {
+            transform: scale(1.1); /* Scale the button slightly on hover */
+        }
+    </style>
+{% endblock %}
